@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: pesstandard
+  datasource:
+    name: druidDataSource
+    # 基本属性 url、username、password
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://localhost:3306/springboot-skeleton?useUnicode=true&characterEncoding=utf-8&useSSL=false&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT%2B8
+      username: root
+      password: '123'
+      driverClassName: com.mysql.cj.jdbc.Driver
+      filters: stat,wall,log4j,config
+      max-active: 100
+      initial-size: 5
+      max-wait: 60000
+      min-idle: 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-open-prepared-statements: 50
+      max-pool-prepared-statement-per-connection-size: 20
+
+mybatis-plus:
+  mapper-locations: classpath:com/atoony/springbootskeleton/web/**/*.xml
+  type-aliases-package: com.atoony.springbootskeleton.**.entity
+  global-config:
+    db-config:
+      field-strategy: not_null
+
