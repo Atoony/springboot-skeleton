@@ -15,8 +15,6 @@ public class MybatisPlusConfig {
 
     /**
      * @Desc 分页插件
-     * @Author wyp
-     * @Date 2018-12-10
      */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
