@@ -1,6 +1,8 @@
 package com.atoony.springbootskeleton.web.controller;
 
 
+import com.atoony.springbootskeleton.config.valid.EntityAddValid;
+import com.atoony.springbootskeleton.config.valid.EntityEditValid;
 import com.atoony.springbootskeleton.web.entity.Book;
 import com.atoony.springbootskeleton.web.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ public class BookController {
     private IBookService bookService;
 
     @PostMapping("")
-    public Object addBook(@RequestBody @Validated Book book){
+    public Object addBook(@RequestBody @Validated({EntityAddValid.class}) Book book){
         return bookService.save(book);
     }
 
@@ -40,7 +42,7 @@ public class BookController {
     }
 
     @PutMapping("")
-    public Object editBook(@RequestBody @Validated Book book){
+    public Object editBook(@RequestBody @Validated({EntityEditValid.class}) Book book){
         return bookService.updateById(book);
     }
 
