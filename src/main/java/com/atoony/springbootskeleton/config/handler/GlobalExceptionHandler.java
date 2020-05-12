@@ -1,5 +1,6 @@
 package com.atoony.springbootskeleton.config.handler;
 
+import com.atoony.springbootskeleton.config.exception.APIException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,6 +11,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(APIException.class)
+    public String APIExceptionHandler(APIException e) {
+        return e.getMsg();
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public String MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
