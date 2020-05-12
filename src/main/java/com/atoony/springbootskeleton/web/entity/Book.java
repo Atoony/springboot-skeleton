@@ -1,10 +1,15 @@
 package com.atoony.springbootskeleton.web.entity;
 
 import java.math.BigDecimal;
+
+import com.atoony.springbootskeleton.config.valid.EntityAddValid;
+import com.atoony.springbootskeleton.config.valid.EntityEditValid;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -14,7 +19,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author Atoony
@@ -29,12 +34,13 @@ public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @NotNull(groups = {EntityEditValid.class}, message = "请提供id")
     private Long id;
 
-    @NotEmpty(message = "请提供书名")
+    @NotEmpty(groups = {EntityAddValid.class, EntityEditValid.class}, message = "请提供书名")
     private String name;
 
-    @NotNull(message = "请提供价格")
+    @NotNull(groups = {EntityAddValid.class, EntityEditValid.class}, message = "请提供价格")
     private Double price;
 
     private String description;

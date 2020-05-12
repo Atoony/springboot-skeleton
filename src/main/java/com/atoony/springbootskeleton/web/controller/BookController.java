@@ -35,7 +35,7 @@ public class BookController {
     }
 
     @GetMapping("")
-    public List<Book> listBook(@RequestBody @Validated Book book){
+    public List<Book> listBook(@RequestBody Book book){
         return bookService.listBooks(book);
     }
 
