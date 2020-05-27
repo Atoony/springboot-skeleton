@@ -1,2 +1,2 @@
-# sppringboot-skeleton
+# springboot-skeleton
 springboot skeleton
