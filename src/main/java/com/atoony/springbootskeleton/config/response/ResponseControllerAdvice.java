@@ -4,6 +4,7 @@ import com.atoony.springbootskeleton.config.exception.APIException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -11,12 +12,16 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.lang.reflect.AnnotatedElement;
+
 @RestControllerAdvice(basePackages = {"com.atoony.springbootskeleton.web.controller"}) // 注意哦，这里要加上需要扫描的包
 public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
     @Override
-    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> aClass) {
-        // 如果接口返回的类型本身就是ResultVO那就没有必要进行额外的操作，返回false
-        return !returnType.getGenericParameterType().equals(CommonResult.class);
+    public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
+        // 只要是用ResponseNotIntercept注解修饰的方法，均不做返回包装
+        AnnotatedElement annotatedElement = methodParameter.getAnnotatedElement();
+        ResponseNotIntercept responseAnnotation = AnnotationUtils.findAnnotation(annotatedElement, ResponseNotIntercept.class);
+        return responseAnnotation == null;
     }
 
     @Override
