@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: pesstandard
+    name: springboot-skeleton
   datasource:
     name: druidDataSource
     # 基本属性 url、username、password
